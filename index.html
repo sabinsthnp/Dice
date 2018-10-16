@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="viewport" content="width=device-width">
+	<meta name="theme-color" content="#16324F">
+	<title>dice</title>
+	<style type="text/css">
+	body{
+		background-color: #2A628F;
+	}
+	.btn{
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+	.btn button{
+		margin: 10px 20px;
+		padding: 10px 25px;
+		width: 100px;
+		cursor: pointer;
+		border: none;
+		border-radius: 10px;
+		outline: none;
+		background-color: #18435A;
+		box-shadow: 0 4px black;
+		color: white;
+	}
+	.btn button:hover{
+		box-shadow: 0 2px black;
+		margin-top: 12px;
+		margin-bottom: 8px;
+	}
+	.btn button:active{
+		box-shadow: none;
+		margin-top: 14px;
+		margin-bottom: 6px;
+	}
+	#mainCube{
+		width: 200px;
+		height: 200px;
+		perspective: 1000px;
+		margin: 200px auto;
+		margin-bottom: 0;
+	}
+	#box{
+		width: 200px;
+		transform-style: preserve-3d;
+		transition: transform 1s;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	#box div{
+		position: absolute;
+		width: 200px;
+		height: 200px;
+		background-color: #fff;
+		border-radius: 15px;
+		text-align: center;
+		color: black;
+		font-size: 25px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+	#front{
+		transform: translateZ(100px);
+	}
+	#back{
+		transform: rotateY(180deg) translateZ(100px);
+	}
+	#left{
+		transform: rotateY(-90deg) translateX(-100px);
+		transform-origin: left;
+	}
+	#right{
+		transform: rotateY(90deg) translateX(100px);
+		transform-origin: right;
+	}
+	#top{
+		transform: rotateX(90deg) translateY(-100px);
+		transform-origin: top;    
+	}
+	#bottom{
+		transform: rotateX(-90deg) translateY(100px);
+		transform-origin: bottom;
+	}
+	#ans{
+		color: white;
+	text-rendering: geometricprecision;
+text-justify: distribute;
+text-emphasis-style: triangle;
+text-transform: full-width;
+color: #fff;
+font-size: 2em;
+	}
+	.dot {
+    position: absolute !important;
+    width: 46px !important;
+    height: 46px !important;
+    border-radius: 100% !important;
+    background: #444 !important;
+    box-shadow: inset 5px 0 10px #000;
+}
+.center{
+	right: 77px;
+}
+.dur{
+	right: 30px;
+}.dul{
+	right: 123px;
+}
+.teru{
+	right: 20px;
+	top: 17px;
+}.terd{
+	left: 20px;
+	bottom: 17px;
+}
+.chauka1{
+	top: 20px;
+	left: 12px;
+}.chauka2{
+	left: 12px;
+	bottom: 20px;
+}.chauka3{
+	right: 20px;
+	top: 20px;
+}.chauka4{
+	right: 20px;
+	bottom: 20px;
+}
+.six{
+	top: 20px;
+	left: 73px;
+}
+.sixx{
+	left: 73px;
+	bottom: 20px;
+}
+</style>
+</head>
+<body><center>
+	<p>Click on dice to roll</p>
+</body>
+<div id="mainCube" onclick="roll()">
+	<div id="box">
+		<div id="front"><div class="dot center"></div></div>
+		<div id="back"><div class="dot dur"></div><div class="dot dul"></div></div>
+		<div id="left"><div class="dot teru"></div><div class="dot center"></div><div class="dot terd"></div></div>
+		<div id="right"><div class="dot chauka1"></div><div class="dot chauka2"></div><div class="dot chauka3"></div><div class="dot chauka4"></div></div>
+		<div id="top"><div class="dot chauka1"></div><div class="dot chauka2"></div><div class="dot center"></div><div class="dot chauka3"></div><div class="dot chauka4"></div></div>
+		<div id="bottom"><div class="dot chauka1"></div><div class="dot chauka2"></div><div class="dot chauka3"></div><div class="dot chauka4"></div><div class="dot six"></div><div class="dot sixx"></div></div>
+	</div>
+</div>
+<div id="ans">ans</div>
+
+
+<script type="text/javascript">
+	function roll(argument) {
+		rotate();
+		var ans=document.getElementById('ans');
+		var val=getRandomInt(1,6);
+		setTimeout(function(){
+			switch (val) {
+				case 0:
+				day = "Pot";
+				break;
+				case 1:
+				day = "Pot";
+				rotateFront();
+				break;
+				case 2:
+				day = "Duwa";
+				rotateBack();
+				break;
+				case 3:
+				day = "Tirki";
+				rotateLeft();
+				break;
+				case 4:
+				day = "Chauka";
+				rotateRight();
+				break;
+				case 5:
+				day = "Panja";
+				rotateTop();
+				break;
+				case 6:
+				day = "Chaka";
+				rotateBottom();
+			}
+			ans.innerHTML=day;
+			faceing="";
+		}, 3000);
+	}
+	function getRandomInt(min, max) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+</script>
+
+<script>
+	var box = document.querySelector("#box");
+	function rotate(argument) {
+		box.style.transition="transform 0.5s";
+		setTimeout(function(){ box.style.transform = "rotateY(-500deg)";},1500);
+		setTimeout(function(){ box.style.transform = "rotateY(900deg)";},1000);
+		setTimeout(function(){ box.style.transform = "rotateY(-500deg)"; box.style.transformOrigin = "center";},500);
+		setTimeout(function(){ box.style.transform = "rotateX(900deg)";},2000);
+		setTimeout(function(){ box.style.transform = "rotateY(360deg)";},2500);
+		setTimeout(function(){ box.style.transform = "rotateY(1800deg)";},3000);
+	}
+	function rotateRight(){
+		box.style.transform = "rotateY(-90deg)";
+	}
+	function rotateLeft(){
+		box.style.transform = "rotateY(90deg)";
+	}
+	function rotateTop(){
+		box.style.transform = "rotateX(-90deg)";
+		box.style.transformOrigin = "center";
+	}
+	function rotateBottom(){
+		box.style.transform = "rotateX(90deg)";
+	}
+	function rotateFront(){
+		box.style.transform = "rotateY(0deg)";
+	}
+	function rotateBack(){
+		box.style.transform = "rotateY(180deg)";
+	}
+</script>
+</html>
